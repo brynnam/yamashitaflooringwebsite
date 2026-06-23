@@ -226,6 +226,7 @@
 
     section {
       padding: clamp(72px, 9vw, 116px) clamp(18px, 4vw, 52px);
+      scroll-margin-top: 84px;
     }
 
     .section-inner {
@@ -333,6 +334,121 @@
       color: var(--muted);
       font-size: 14px;
       line-height: 1.55;
+    }
+
+    .reviews {
+      background:
+        radial-gradient(circle at top left, rgba(180, 116, 53, .12), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #f7f4ef 100%);
+    }
+
+    .review-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(300px, .44fr);
+      gap: clamp(28px, 5vw, 72px);
+      align-items: start;
+    }
+
+    .review-header {
+      display: grid;
+      gap: 22px;
+    }
+
+    .star-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--oak);
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .star-line svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .review-header p {
+      max-width: 650px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .review-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .review-card {
+      min-height: 178px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .78);
+      box-shadow: 0 16px 42px rgba(35, 33, 30, .08);
+    }
+
+    .review-card strong {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+    }
+
+    .review-card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .review-panel {
+      padding: 28px;
+      border-radius: 8px;
+      color: #fff;
+      background: var(--charcoal);
+      box-shadow: var(--shadow);
+    }
+
+    .review-panel h3 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .review-panel p {
+      margin: 14px 0 0;
+      color: rgba(255, 255, 255, .76);
+      line-height: 1.6;
+    }
+
+    .review-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .review-tags span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .1);
+      color: rgba(255, 255, 255, .9);
+      font-size: 13px;
+      font-weight: 750;
     }
 
     .process {
@@ -633,11 +749,13 @@
 
       .section-title,
       .process-layout,
+      .review-layout,
       .quote-layout {
         grid-template-columns: 1fr;
       }
 
       .service-grid,
+      .review-grid,
       .project-list {
         grid-template-columns: 1fr;
       }
@@ -754,6 +872,7 @@
       <div class="nav-links" aria-label="Section links">
         <a href="#services">Services</a>
         <a href="#work">Recent Work</a>
+        <a href="#reviews">Reviews</a>
         <a href="#process">Our Process</a>
       </div>
       <a class="nav-cta" href="#quote">Request a Quote</a>
@@ -846,6 +965,54 @@
             <p>Warm stain, satin topcoat, and crisp edges around trim and thresholds.</p>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="reviews" id="reviews" aria-labelledby="reviews-title">
+      <div class="section-inner review-layout">
+        <div>
+          <div class="review-header">
+            <div class="star-line" aria-label="Five star review prompt">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.4 2.9 6 6.6 1-4.8 4.7 1.1 6.6-5.8-3.1-5.8 3.1 1.1-6.6-4.8-4.7 6.6-1L12 2.4Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.4 2.9 6 6.6 1-4.8 4.7 1.1 6.6-5.8-3.1-5.8 3.1 1.1-6.6-4.8-4.7 6.6-1L12 2.4Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.4 2.9 6 6.6 1-4.8 4.7 1.1 6.6-5.8-3.1-5.8 3.1 1.1-6.6-4.8-4.7 6.6-1L12 2.4Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.4 2.9 6 6.6 1-4.8 4.7 1.1 6.6-5.8-3.1-5.8 3.1 1.1-6.6-4.8-4.7 6.6-1L12 2.4Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.4 2.9 6 6.6 1-4.8 4.7 1.1 6.6-5.8-3.1-5.8 3.1 1.1-6.6-4.8-4.7 6.6-1L12 2.4Z"/></svg>
+            </div>
+            <h2 id="reviews-title">Reviews</h2>
+            <p>Finished floors should feel as good as they look. If Yamashita Flooring has worked in your home, a quick review helps the next homeowner know what to expect.</p>
+            <div class="review-actions">
+              <a class="button" href="mailto:yamashita08112@gmail.com?subject=Yamashita%20Flooring%20Review&body=Hi%2C%20I%27d%20like%20to%20leave%20a%20review%20for%20Yamashita%20Flooring%3A%0A%0A">Email a Review</a>
+              <a class="button secondary" href="sms:+19097450028?&body=Hi%2C%20I%27d%20like%20to%20leave%20a%20review%20for%20Yamashita%20Flooring%3A%20">Text a Review</a>
+            </div>
+          </div>
+          <div class="review-grid" aria-label="Review topics">
+            <article class="review-card">
+              <strong>Clean workmanship</strong>
+              <p>Mention the floor finish, transitions, trim details, dust control, and how the room looked at the final walkthrough.</p>
+            </article>
+            <article class="review-card">
+              <strong>Clear communication</strong>
+              <p>Share whether the estimate, schedule, material guidance, and project steps were easy to understand.</p>
+            </article>
+            <article class="review-card">
+              <strong>Everyday durability</strong>
+              <p>Tell future customers how the floor feels after real daily use with family, pets, furniture, and traffic.</p>
+            </article>
+          </div>
+        </div>
+        <aside class="review-panel">
+          <h3>What helps in a review?</h3>
+          <p>A few specific details go a long way. Photos, room names, flooring type, and notes about cleanup or communication make reviews more useful.</p>
+          <div class="review-tags" aria-label="Helpful review details">
+            <span>Room type</span>
+            <span>Flooring material</span>
+            <span>Timeline</span>
+            <span>Cleanup</span>
+            <span>Communication</span>
+            <span>Final finish</span>
+          </div>
+        </aside>
       </div>
     </section>
 
