@@ -1,0 +1,16 @@
+{
+  "name": "yamashita-flooring-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "node -e \"console.log('Static site: no build step needed')\""
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.4",
+    "twilio": "^5.4.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.38.1"
+  }
+}
