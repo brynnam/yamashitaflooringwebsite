@@ -466,6 +466,12 @@
       gap: 10px;
     }
 
+    .contact-lines a {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
     .contact-lines svg {
       width: 19px;
       height: 19px;
@@ -524,6 +530,59 @@
       color: var(--sage);
       font-size: 14px;
       font-weight: 750;
+    }
+
+    .quote-helper {
+      margin: -2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .form-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .button.copy {
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid rgba(35, 33, 30, .16);
+      box-shadow: none;
+    }
+
+    .qr-panel {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 16px;
+      align-items: center;
+      margin-top: 18px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .72);
+    }
+
+    .qr-panel img {
+      width: 96px;
+      height: 96px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+
+    .qr-panel strong {
+      display: block;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .qr-panel span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
     }
 
     footer {
@@ -662,6 +721,16 @@
 
       .form-row {
         grid-template-columns: 1fr;
+      }
+
+      .form-actions,
+      .qr-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .qr-panel img {
+        width: 112px;
+        height: 112px;
       }
 
       .footer-inner {
@@ -823,8 +892,15 @@
           <h2 id="quote-title">Request a Quote</h2>
           <p>Share the rooms, flooring type, and timeline. Submitting opens the customer's text app with the full request ready to send to Yamashita Flooring.</p>
           <div class="contact-lines">
-            <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6.4 6.4l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>(909) 745-0028</span>
-            <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16v12H4zM4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>yamashita08112@gmail.com</span>
+            <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6.4 6.4l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><a href="tel:+19097450028">(909) 745-0028</a></span>
+            <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16v12H4zM4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><a href="mailto:yamashita08112@gmail.com">yamashita08112@gmail.com</a></span>
+          </div>
+          <div class="qr-panel">
+            <img src="assets/text-request-qr.png" alt="QR code to start a text request to Yamashita Flooring.">
+            <div>
+              <strong>On a laptop?</strong>
+              <span>Scan this with your phone to start a text, or use the copy button after filling out the form.</span>
+            </div>
           </div>
         </div>
         <form id="quoteForm">
@@ -842,7 +918,11 @@
             </label>
           </div>
           <label>Project Details <textarea name="details" placeholder="Rooms, approximate size, timeline, and anything you want checked."></textarea></label>
-          <button class="button" type="submit">Text Request</button>
+          <p class="quote-helper">On a phone, Text Request opens the Messages app. On a laptop, use Copy Request, call/text the number, or email directly.</p>
+          <div class="form-actions">
+            <button class="button" type="submit">Text Request</button>
+            <button class="button copy" id="copyRequest" type="button">Copy Request</button>
+          </div>
           <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -860,9 +940,9 @@
     const form = document.querySelector("#quoteForm");
     const note = document.querySelector("#formNote");
     const submitButton = form.querySelector("button[type='submit']");
+    const copyButton = document.querySelector("#copyRequest");
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
+    function getQuoteMessage() {
       const formData = new FormData(form);
       const name = formData.get("name") || "New lead";
       const phone = formData.get("phone") || "No phone provided";
@@ -875,6 +955,11 @@
         `Floor type: ${floor}`,
         `Details: ${details}`
       ].join("\n");
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const message = getQuoteMessage();
 
       submitButton.textContent = "Opening Text...";
       note.textContent = "Opening your text app with the quote request ready to send.";
@@ -883,6 +968,17 @@
       window.setTimeout(() => {
         submitButton.textContent = "Text Request";
       }, 1200);
+    });
+
+    copyButton.addEventListener("click", async () => {
+      const message = getQuoteMessage();
+
+      try {
+        await navigator.clipboard.writeText(message);
+        note.textContent = "Quote request copied. Paste it into a text, email, or message app.";
+      } catch (error) {
+        note.textContent = "Copy was blocked. Select the project details and copy them manually, or call/text (909) 745-0028.";
+      }
     });
   </script>
 </body>
