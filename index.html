@@ -821,7 +821,7 @@
       <div class="section-inner quote-layout">
         <div class="quote-copy">
           <h2 id="quote-title">Request a Quote</h2>
-          <p>Share the rooms, flooring type, and timeline. The full request is emailed to Yamashita Flooring, with a text notification sent when it arrives.</p>
+          <p>Share the rooms, flooring type, and timeline. Submitting opens the customer's text app with the full request ready to send to Yamashita Flooring.</p>
           <div class="contact-lines">
             <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6.4 6.4l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>(909) 745-0028</span>
             <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16v12H4zM4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>yamashita08112@gmail.com</span>
@@ -842,7 +842,7 @@
             </label>
           </div>
           <label>Project Details <textarea name="details" placeholder="Rooms, approximate size, timeline, and anything you want checked."></textarea></label>
-          <button class="button" type="submit">Send Request</button>
+          <button class="button" type="submit">Text Request</button>
           <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -861,43 +861,28 @@
     const note = document.querySelector("#formNote");
     const submitButton = form.querySelector("button[type='submit']");
 
-    form.addEventListener("submit", async (event) => {
+    form.addEventListener("submit", (event) => {
       event.preventDefault();
       const formData = new FormData(form);
-      const payload = {
-        name: formData.get("name"),
-        phone: formData.get("phone"),
-        floor: formData.get("floor"),
-        details: formData.get("details")
-      };
+      const name = formData.get("name") || "New lead";
+      const phone = formData.get("phone") || "No phone provided";
+      const floor = formData.get("floor") || "Flooring project";
+      const details = formData.get("details") || "No project details provided";
+      const message = [
+        "New quote request for Yamashita Flooring:",
+        `Name: ${name}`,
+        `Phone: ${phone}`,
+        `Floor type: ${floor}`,
+        `Details: ${details}`
+      ].join("\n");
 
-      submitButton.disabled = true;
-      submitButton.textContent = "Sending...";
-      note.textContent = "Sending your request...";
+      submitButton.textContent = "Opening Text...";
+      note.textContent = "Opening your text app with the quote request ready to send.";
+      window.location.href = `sms:+19097450028?&body=${encodeURIComponent(message)}`;
 
-      try {
-        const response = await fetch("/.netlify/functions/quote", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-
-        const result = await response.json().catch(() => ({}));
-
-        if (!response.ok) {
-          throw new Error(result.error || "Request could not be sent.");
-        }
-
-        note.textContent = "Thanks. Your request was sent, and Yamashita Flooring was notified by text.";
-        form.reset();
-      } catch (error) {
-        note.textContent = "Sorry, the request could not be sent. Please call or text (909) 745-0028.";
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = "Send Request";
-      }
+      window.setTimeout(() => {
+        submitButton.textContent = "Text Request";
+      }, 1200);
     });
   </script>
 </body>
